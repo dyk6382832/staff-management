@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>合同管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <!-- 数据块 -->
+        <div class="layui-card-body"><br>
+            <table>
+                <tr>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="search_user_name" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">员工编号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="search_user_id" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">部门</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="search_dept" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="">
+                            <div>
+                                <button type="submit" class="layui-btn">查询</button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+
+            </table>
+            <table class="layui-hide" id="app-management-table" lay-filter="app-management-table-fit"></table>
+            <script type="text/html" id="app-management-table-toolbar-line">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                        class="layui-icon layui-icon-edit"></i>编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                        class="layui-icon layui-icon-delete"></i>删除</a>
+                <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail"><i
+                        class="layui-icon layui-icon-detail"></i>查看</a>
+            </script>
+        </div>
+
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    var appManagementTableJs = {
+        method: {
+            addAppManagementDialog: function () {
+                // 添加按钮操作
+                layui.use('layer', function (layer) {
+                    layer.open({
+                        type: 1
+                        , skin: 'examine-refuse-popup'
+                        , offset: 'auto'
+                        , id: 'layer-id'
+                        , area: ['800px', '600px']
+                        , content: $("#dialog-app-table-add")
+                        , btn: ['确定', '取消']
+                        , shade: 0.5 //不显示遮罩
+                        , end: function () {
+                            $("#dialog-app-table-add").css("display", "none");
+                            $("#dialog-app-table-add")[0].reset();
+                            layui.form.render();
+                        }
+                        , yes: function () {
+                            var data = {};
+                            data.userId = $("#user_id").val();
+                            data.userName = $("#user_name").val();
+                            data.nation = $("#nation").val();
+                            data.ContractSigning = $("#contract_signing").val();
+
+                            $.ajax({
+                                url: '/staff/add',
+                                type: 'post',
+                                data: JSON.stringify(data),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    layer.closeAll();
+                                    if (result.code == 200) {
+                                        layer.msg('添加成功');
+                                        $("#dialog-app-table-add")[0].reset();
+                                        appManagementTableJs.method.reload();
+                                        layui.form.render();
+                                    } else {
+                                        layer.msg(result.message, {icon: 0});
+                                    }
+                                },
+                                error: function () {
+                                    layer.msg('数据异常');
+                                    layer.closeAll();
+                                }
+                            })
+                        }
+                        , btn2: function () {
+                            $("#dialog-app-table-add")[0].reset();
+                            layui.form.render();
+                        }
+                    });
+                });
+            },
+            reload: function () {
+                layui.use(['table'], function () {
+                    var table = layui.table;
+                    table.reload('app-management-table', {
+                        page: {
+                            curr: 1
+                        },
+                        where: null
+                    });
+                })
+            }
+        }
+    };
+
+    layui.use(['table', 'util'], function () {
+        var table = layui.table
+            , form = layui.form;
+        table.render({
+            elem: '#app-management-table'
+            , id: 'app-management-table'
+            , toolbar: "#app-management-table-toolbar-head"
+            , defaultToolbar: ['filter', 'print']
+            , url: '/staff/list'
+            , page: true //开启分页
+            , limits: [10, 20, 50, 100]
+            , limit: 20
+            , method: 'post'
+            , contentType: 'application/json'
+            , cols: [[ //表头
+                {type:'radio'}
+                , {field: 'id', title: '序号', width:60}
+                , {field: 'userId', title: '员工编号', edit: 'text'}
+                , {field: 'userName', title: '姓名',  edit: 'text'}
+                , {field: 'contractSigning', title: '合同起始时间',  edit: 'text'}
+                , {field: 'contract_end', title: '合同结束时间',  edit: 'text'}
+                , {field: 'post', title: '职务', edit: 'text'}
+                , {field: 'joinDate', title: '入职时间',  edit: 'text'}
+            ]]
+        });
+
+        // 修改和删除
+       /* table.on('tool(app-management-table-fit)', function (obj) {
+            if (obj.event === 'edit') {
+                layer.confirm('0？', function () {
+                    $.ajax({
+                        url: '/staff/update',
+                        type: 'post',
+                        data: JSON.stringify(obj.data),
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.code == 200) {
+                                layer.msg("修改成功");
+                                obj.update({
+                                    updateTime: result.data.updateTime
+                                })
+                            } else {
+                                layer.msg(result.message, {icon: 0});
+                            }
+                        },
+                        error: function () {
+                            layer.msg("数据请求异常");
+                            layer.closeAll()
+                        }
+                    })
+                })
+            } else if (obj.event === 'del') {
+                var data = {};
+                data = obj.data.id;
+                layer.confirm('确定删除该人员？删除后不可恢复', function () {
+                    $.ajax({
+                        url: '/staff/delete',
+                        type: 'post',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.code == 200) {
+                                layer.msg("删除成功");
+                                obj.del();
+                            } else {
+                                layer.msg(result.message);
+                            }
+                        },
+                        error: function () {
+                            layer.msg("数据请求异常");
+                            layer.closeAll()
+                        }
+                    })
+                })
+            }else if (obj.event === 'detail') {
+                layui.use('layer', function (layer) {
+                    layer.open({
+                        type: 1
+                        , skin: 'examine-refuse-popup'
+                        , offset: 'auto'
+                        , title: '查看人员信息'
+                        , id: 'layer-id'
+                        , area: ['800px', '800px']
+                        , content: $('#dialog-app-table-add')
+                        , btn: ['确定', '取消']
+                        , shade: 0.5 //不显示遮罩
+                        , end: function () {
+                            $("#dialog-app-table-add").css("display", "none");
+                            $("#update-gray-version-form")[0].reset();
+                            layui.form.render();
+                        }
+                        , yes: function () {
+                            //监听提交
+                            $.ajax({
+                                url: '/staff/detail',
+                                type: 'post',
+                                data: JSON.stringify(data),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    layer.closeAll();
+                                    if (result.code == 200) {
+                                        $("#update-gray-version-form")[0].reset();
+                                        actives['reload'].call(this);
+                                        layui.form.render();
+                                    } else {
+                                        layer.msg(result.message, {icon: 0});
+                                    }
+                                },
+                                error: function () {
+                                    layer.msg('数据异常');
+                                    layer.closeAll();
+                                }
+                            });
+
+                            return false;
+                        }
+                    });
+                });
+            }
+
+        });*/
+
+    });
+</script>
+</body>
+</html>

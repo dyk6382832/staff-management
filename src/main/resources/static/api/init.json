@@ -1,0 +1,55 @@
+{
+  "homeInfo": {
+    "title": "人员管理",
+    "href": "/page/manage/staff.html",
+    "icon": "fa fa-tachometer",
+    "target": "_self"
+  },
+  "logoInfo": {
+    "title": "佳浴",
+    "image": "../images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "员工管理",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "人员管理",
+              "href": "/page/manage/staff.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "合同管理",
+              "href": "/page/manage/contract_management.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "工作证管理",
+              "href": "/page/manage/card.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "接口管理",
+          "href": "page/menu.html",
+          "icon": "fa fa-window-maximize",
+          "target": "_self"
+        }
+      ]
+        }
+      ]
+}

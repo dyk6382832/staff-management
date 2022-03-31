@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页二</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .icon {margin-right:10px;color:#1aa094;}
+        .icon-cray {color:#ffb800!important;}
+        .icon-blue {color:#1e9fff!important;}
+        .icon-tip {color:#ff5722!important;}
+        .layuimini-qiuck-module {text-align:center;margin-top: 10px}
+        .layuimini-qiuck-module a i {display:inline-block;width:100%;height:60px;line-height:60px;text-align:center;border-radius:2px;font-size:30px;background-color:#F8F8F8;color:#333;transition:all .3s;-webkit-transition:all .3s;}
+        .layuimini-qiuck-module a cite {position:relative;top:2px;display:block;color:#666;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;font-size:14px;}
+        .welcome-module {width:100%;height:210px;}
+        .layuimini-container {width:100%;height:100%;}
+        .panel {background-color:#fff;border:1px solid transparent;border-radius:3px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05)}
+        .panel-body {padding:10px}
+        .panel-title {margin-top:0;margin-bottom:0;font-size:12px;color:inherit}
+        .label {display:inline;padding:.2em .6em .3em;font-size:75%;font-weight:700;line-height:1;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em;margin-top: .3em;}
+        .layui-red {color:red}
+        .main_btn > p {height:40px;}
+        .layui-bg-number {background-color:#F8F8F8;height:60px;}
+        .layuimini-notice:hover {background:#f6f6f6;}
+        .layuimini-notice {padding:7px 16px;clear:both;font-size:12px !important;cursor:pointer;position:relative;transition:background 0.2s ease-in-out;}
+        .layuimini-notice-title,.layuimini-notice-label {
+            padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
+        .layuimini-notice-title {line-height:28px;font-size:14px;}
+        .layuimini-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}
+        .myinput {border: none;background-color: transparent;color: #00b7ee;}
+        .sysinput {border: none;background-color: transparent;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10">
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-blue">实时</span>
+                                                        <h3>运营号总数</h3>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">
+                                                            <h1 class="no-margins">
+                                                                <label for="companyCount">
+                                                                    <input type="text" class ="myinput" name="companyCount" id="companyCount" disabled="disabled" style="width:100px; height: 25px">
+                                                                </label>
+                                                            </h1>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-cyan">实时</span>
+                                                        <h3>小区总数</h3>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">
+                                                            <label for="neighCount">
+                                                                <input type="text" class ="myinput" name="neighCount" id="neighCount" disabled="disabled" style="width:100px; height: 25px">
+                                                            </label>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-orange">实时</span>
+                                                        <h3>房屋总数</h3>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">
+                                                            <label for="houseCount">
+                                                                <input type="text" class ="myinput" name="houseCount" id="houseCount" disabled="disabled" style="width:100px; height: 25px">
+                                                            </label>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-green">实时</span>
+                                                        <h3>住户总数</h3>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">
+                                                            <label for="personCount">
+                                                                <input type="text" class ="myinput" name="personCount" id="personCount" disabled="disabled" style="width:100px; height: 25px">
+                                                            </label>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="panel layui-bg-number">
+                                                <div class="panel-body">
+                                                    <div class="panel-title">
+                                                        <span class="label pull-right layui-bg-red">实时</span>
+                                                        <h3>设备总数</h3>
+                                                    </div>
+                                                    <div class="panel-content">
+                                                        <h1 class="no-margins">
+                                                            <label for="deviceCount">
+                                                                <input type="text" class ="myinput" name="deviceCount" id="deviceCount" disabled="disabled" style="width:100px; height: 25px">
+                                                            </label>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <i class="fa fa-credit-card icon icon-blue"></i>
+                                住户数量最多的小区
+                            </div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:" data-title="小区名字" data-icon="fa fa-gears">
+                                                <div class="panel-content">
+                                                    <h1 class="no-margins">
+                                                        <label for="neighName">
+                                                            <input type="text" class ="myinput" name="neighName"
+                                                                   id="neighName" disabled="disabled"
+                                                                   style="width:125px; height:100%;text-align: center">
+                                                        </label>
+                                                    </h1>
+                                                </div>
+                                                <cite>
+                                                    <h2>小区名字</h2>
+                                                </cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="javascript:" data-title="住户数量" data-icon="fa fa-gears">
+                                                <div class="panel-content">
+                                                    <h1 class="no-margins">
+                                                        <label for="mostPersonCount">
+                                                            <input type="text" class ="myinput"
+                                                                   name="mostPersonCount" id="mostPersonCount"
+                                                                   disabled="disabled" style="width:115px;
+                                                                   height:100%;text-align: center;">
+                                                        </label>
+                                                    </h1>
+                                                </div>
+                                                <cite>
+                                                    <h2>住户数量</h2>
+                                                </cite>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>最近n个月的数量统计</div>
+                            <div class="layui-card-header" style="text-align: center">
+                                <label for="start">开始日期：</label><input id="start" type="date" value="2021-01-01"/>
+                                <label for="end">结束日期：</label><input id="end" type="date" value="2022-01-01"/>
+                                <button id="submit1" onclick="getData()">查询</button>
+                            </div>
+                            <div class="layui-card-body">
+                                <div id="echartsRecord" style="width: 100%;min-height:400px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-fire icon"></i>版本信息</div>
+                    <div class="layui-card-body layui-text">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="100">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td>系统名称</td>
+                                <td>
+                                    <input type="text" class ="sysinput" name="systemName" id="systemName"
+                                           disabled="disabled" style="width:100%; height: 20px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>当前版本</td>
+                                <td>
+                                    <input type="text" class ="sysinput" name="versonName" id="versonName"
+                                           disabled="disabled" style="width:100%; height: 20px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>当前环境</td>
+                                <td>
+                                    <input type="text" class ="sysinput" name="environmentName" id="environmentName"
+                                           disabled="disabled" style="width:100%; height: 20px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>登录地址</td>
+                                <td>
+                                    <input type="text" class ="sysinput" name="loginUrl" id="loginUrl"
+                                           disabled="disabled" style="width:100%; height: 20px">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="layui-card">
+                    <div class="layui-card-header"><i class="fa fa-paper-plane-o icon"></i>版权所有</div>
+                    <div class="layui-card-body layui-text layadmin-text">
+                        leelen 物业平台开发组后端
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../js/lay-module/echarts/echartsMin.js"></script>
+<script type="text/javascript">
+
+    window.onload = function()
+    {
+        // 初始化数据统计
+        getStatisticsData();
+        // 初始化住户数量最多的小区
+        getLargestHouseHoldNeighInfo();
+        // 初始化版本信息
+        getSystemInfo();
+        // 初始化最近n个月的数据统计
+        clickOneTimeButton();
+    }
+    function getStatisticsData() {
+        // // 每隔5分钟请求一次接口
+        // setTimeout(getStatisticsData, 1000 * 60 * 5);
+        $.ajax({
+            url: '/workBench/getStatisticsData',
+            type: 'post',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.code === 200) {
+                    // 给HTML元素的value属性赋值
+                    document.getElementById('companyCount').value = result.data.companyCount;
+                    document.getElementById('neighCount').value = result.data.neighCount;
+                    document.getElementById('houseCount').value = result.data.houseCount;
+                    document.getElementById('personCount').value = result.data.personCount;
+                    document.getElementById('deviceCount').value = result.data.deviceCount;
+                } else {
+                    document.getElementById('companyCount').value = "接口请求异常";
+                    document.getElementById('neighCount').value = "接口请求异常";
+                    document.getElementById('houseCount').value = "接口请求异常";
+                    document.getElementById('personCount').value = "接口请求异常";
+                    document.getElementById('deviceCount').value = "接口请求异常";
+                }
+                layer.closeAll();
+            },
+            error: function () {
+                layer.msg('数据请求异常');
+                layer.closeAll();
+            }
+        })
+    }
+
+    function getLargestHouseHoldNeighInfo() {
+        // // 每隔5分钟请求一次接口
+        // setTimeout(getLargestHouseHoldNeighInfo, 1000 * 60 * 5);
+        $.ajax({
+            url: '/workBench/getLargestHouseHoldNeighInfo',
+            type: 'post',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.code === 200) {
+                    //给HTML元素的value属性赋值
+                    document.getElementById('neighName').value = result.data.neighName;
+                    document.getElementById('mostPersonCount').value = result.data.personCount;
+                } else {
+                    document.getElementById('neighName').value = "接口请求异常";
+                    document.getElementById('mostPersonCount').value = "接口请求异常";
+                }
+                layer.closeAll();
+            },
+            error: function () {
+                layer.msg('数据请求异常');
+                layer.closeAll();
+            }
+        })
+    }
+
+    function getSystemInfo() {
+        $.ajax({
+            url: '/workBench/getSystemInfo',
+            type: 'post',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.code === 200) {
+                    // 给HTML元素的value属性赋值
+                    document.getElementById('systemName').value = result.data.systemName;
+                    document.getElementById('versonName').value = result.data.versonName;
+                    document.getElementById('environmentName').value = result.data.environmentName;
+                    document.getElementById('loginUrl').value = result.data.loginUrl;
+                } else {
+                    document.getElementById('systemName').value = "接口请求异常";
+                    document.getElementById('versonName').value = "接口请求异常";
+                    document.getElementById('environmentName').value = "接口请求异常";
+                    document.getElementById('loginUrl').value = "接口请求异常";
+                }
+                layer.closeAll();
+            },
+            error: function () {
+                layer.msg('数据请求异常');
+                layer.closeAll();
+            }
+        })
+    }
+    function clickOneTimeButton() {
+        document.getElementById("submit1").click();
+    }
+
+    /**
+     * 统计功能
+     */
+    /* 折线图类目 */
+    var legendData = ['运营号','小区','房屋','住户','设备'];
+    /* 横坐标数值 */
+    var xData = [];
+    /* 图标数值 */
+    var myChart;
+
+    /* 获取echarts图表x轴节点说明 */
+    function getEchartsxAxis(req) {
+        xData = [];
+        for (var i = 0; i < req.length; i++) {
+            // 遍历数组
+            var oneDate = new Date(req[i]);
+            var year = oneDate.getFullYear();
+            // 月份取出来是0对应1月，1对应2月，以此类推，所以页面显示要转换一下
+            var month = oneDate.getMonth();
+            month = month + 1;
+            if (month > 12) {
+                month = month - 12;
+                year = year + 1;
+            }
+            var timeData = year + "-" + month;
+            xData.push(timeData);
+        }
+        return xData;
+    }
+
+    /* 加载echarts图表 */
+    function load(data) {
+        if (myChart != null && myChart !== "" && myChart !== undefined) {
+            myChart.dispose();
+        }
+        // 基于准备好的dom，初始化echarts实例
+        myChart =echarts.init(document.getElementById('echartsRecord'));
+        var option = {
+            title: {
+                text:'最近n个月的数据统计折线图'
+            },
+            // 提示框组件
+            tooltip: {
+                trigger: 'axis'
+            },
+            //数据全部显示
+            axisLabel: {
+                interval: 0
+            },
+            // 图例
+            legend: {
+                data:legendData
+            },
+            xAxis: {
+                type: 'category',
+                data: getEchartsxAxis(data.axisList)
+            },
+            yAxis: {
+                type:'value'
+            },
+            // 系列列表。每个系列通过type决定自己的图表类型
+            series:[
+                {
+                    name: "运营号",
+                    type: "line",
+                    data: data.companyCountList
+                },
+                {
+                    name: "小区",
+                    type: "line",
+                    data: data.neighCountList
+                },
+                {
+                    name: "房屋",
+                    type: "line",
+                    data: data.houseCountList
+                },
+                {
+                    name: "住户",
+                    type: "line",
+                    data: data.personCountList
+                },
+                {
+                    name: "设备",
+                    type: "line",
+                    data: data.deviceCountList
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption(option)
+
+        // echarts 窗口缩放自适应
+        window.onresize = function(){
+            myChart.resize();
+        }
+    }
+
+    // buttion调用的方法
+    function getData() {
+        // // 每隔5分钟请求一次接口
+        // setTimeout(getData, 1000 * 60 * 5);
+        var requestData = {};
+        requestData.start = $('#start').val();
+        requestData.end = $('#end').val();
+        if (new Date(requestData.start).getTime() > new Date(requestData.end).getTime()) {
+            alert("结束时间不能早于开始时间！");
+        }
+        //异步请求
+        $.ajax({
+            url: '/workBench/getNearMonthsData',
+            data: JSON.stringify(requestData),
+            contentType: 'application/json',
+            type: 'post',
+            success: function (res) {
+                load(res.data);
+            },
+            error: function () {
+                layer.msg('数据请求异常');
+                layer.closeAll();
+            }
+        });
+    }
+</script>
+</body>
+</html>

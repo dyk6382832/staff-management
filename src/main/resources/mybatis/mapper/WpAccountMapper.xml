@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiayu.staffmanagement.admin.dao.WpAccountMapper">
+    <sql id="Base_Column_List">
+        id,
+        username,
+        password,
+        create_time,
+        update_time
+    </sql>
+
+    <select id="selectAccountByUserInfo" parameterType="com.jiayu.staffmanagement.admin.entity.AccountDTO"
+            resultType="com.jiayu.staffmanagement.admin.entity.AccountDTO">
+        select username,password,account_state
+        from t_system_account
+        where username = #{account.username}
+        and password = #{account.password}
+    </select>
+
+    <select id="selectAccountById" parameterType="com.jiayu.staffmanagement.admin.entity.AccountDTO"
+            resultType="com.jiayu.staffmanagement.admin.entity.AccountDTO">
+        select id,username,password,account_state
+        from t_system_account
+        where id = #{id}
+    </select>
+
+    <select id="selectAccountByUsername" resultType="com.jiayu.staffmanagement.admin.entity.AccountDTO">
+        select id,username,password,account_state
+        from t_system_account
+        where username = #{username}
+    </select>
+
+    <update id="updateAccountByUsername">
+        update t_system_account
+        <set>
+            <if test="account.password != null">
+                password = #{account.password,jdbcType=VARCHAR},
+            </if>
+            <if test="account.accountState != null">
+                account_state = #{account.accountState,jdbcType=INTEGER},
+            </if>
+        </set>
+        where username = #{account.username,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAccountById">
+        update t_system_account
+        <set>
+            <if test="account.password != null">
+                password = #{account.password,jdbcType=VARCHAR},
+            </if>
+            <if test="account.accountState != null">
+                account_state = #{account.accountState,jdbcType=INTEGER},
+            </if>
+            <if test="account.username != null">
+                username = #{account.username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{account.id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delAccountById" >
+         DELETE
+         FROM t_system_account
+         WHERE id = #{id}
+    </delete>
+
+    <insert id="insertAccount">
+        INSERT INTO t_system_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account.username != null">
+                username,
+            </if>
+            <if test="account.password != null">
+                password,
+            </if>
+            <if test="account.accountState != null">
+                account_state,
+            </if>
+            create_time,
+            update_time
+        </trim>
+
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account.username != null">
+                #{account.username,jdbcType=VARCHAR},
+            </if>
+            <if test="account.password != null">
+                #{account.password,jdbcType=VARCHAR},
+            </if>
+            <if test="account.accountState != null">
+                #{account.accountState,jdbcType=INTEGER},
+            </if>
+            NOW(),
+            NOW()
+        </trim>
+    </insert>
+</mapper>
