@@ -15,46 +15,46 @@
 
         <!-- 数据块 -->
         <div class="layui-card-body"><br>
-            <table>
-                <tr>
-                    <th>
-                        <div class="layui-inline">
-                        <label class="layui-form-label">姓名</label>
-                        <div class="layui-input-inline">
-                        <input type="text" id="search_user_name" required lay-verify="required" placeholder="" class="layui-input" value=""/>
-                        </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">员工编号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="search_user_id" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <div class="layui-form layui-form-pane">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_name" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">部门</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="search_dept" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">员工编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_id"  placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="">
-                            <div>
-                                <button type="submit" class="layui-btn">查询</button>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_dept" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                </tr>
 
-            </table>
+                            <div class="layui-inline">
+                                <button class="layui-btn layuiadmin-btn-list" id="search-btn" data-type="reload" lay-submit=""
+                                        lay-filter="LAY-app-contlist-search">
+                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                </button>
+                                <button type="reset" class="layui-btn layui-btn-primary" id="reset-btn">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
             <table class="layui-hide" id="app-management-table" lay-filter="app-management-table-fit"></table>
             <script type="text/html" id="app-management-table-toolbar-head">
                 <button class="layui-btn layui-btn-sm" onclick="appManagementTableJs.method.addAppManagementDialog()" >添加员工</button>
-                <button class="layui-btn layui-btn-sm" onclick="appManagementTableJs.method.addAppManagementDialog()" >导出Excel</button>
+                <!--                <button class="layui-btn layui-btn-sm" onclick="appManagementTableJs.method.addAppManagementDialog()" >导出Excel</button>-->
             </script>
             <script type="text/html" id="app-management-table-toolbar-line">
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
@@ -72,25 +72,25 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">姓名*</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="user_name" required lay-verify="required" placeholder="" class="layui-input"/>
+                        <input type="text" id="user_name" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">身份证号码*</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="card_no" name="card_no" lay-verify="required|identity" autocomplete="off" class="layui-input">
+                        <input type="text"  id="card_no" name="card_no" lay-verify="required|identity" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">员工编号*</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="user_id" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="user_id" disabled='disabled' placeholder="自动生成" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">出生年月*</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="birthday" id="birthday" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                        <input type="text" name="birthday" disabled='disabled' id="birthday" lay-verify="required" placeholder="自动生成" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -108,13 +108,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">性别</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="sex" name="sex" id="sex" lay-verify="" placeholder="" autocomplete="off" class="layui-input">
+                        <input type="text" id="sex" disabled='disabled' name="sex" id="sex" lay-verify="" placeholder="自动生成"autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">年龄</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="age" name="age" lay-verify="" autocomplete="off" class="layui-input">
+                        <input type="text" id="age" name="age" lay-verify="" autocomplete="off" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div>
@@ -148,19 +148,19 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">紧急联系人</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="emergency_contact" lay-verify="" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="emergency_contact" lay-verify="" placeholder="" autocomplete="off" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">紧急联系人电话</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="emergency_contact_tel" lay-verify="" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="emergency_contact_tel" lay-verify="" placeholder="" autocomplete="off" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">关系</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="relation"  lay-verify="" placeholder="" class="layui-input"/>
+                        <input type="text" id="relation"  lay-verify="" placeholder="" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -210,17 +210,17 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">职务*</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="post" name="post" lay-verify="required" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="post" name="post" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">本企工龄</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="working_year" lay-verify="" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="working_year" lay-verify="" placeholder="" autocomplete="off" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">入职时间</label>
+                    <label class="layui-form-label">入职时间*</label>
                     <div class="layui-input-inline">
                         <input type="text" name="join_date" id="join_date" lay-verify="date" placeholder="" autocomplete="off" class="layui-input">
                     </div>
@@ -228,31 +228,31 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">合同签订*</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="contract_signing" lay-verify="required" placeholder="" class="layui-input" value=""/>
+                        <input type="text" id="contract_signing" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value=""/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">合同续签</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="contract_renewal"  lay-verify="required" placeholder="" class="layui-input"/>
+                        <input type="text" id="contract_renewal"  lay-verify="required" placeholder="" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">体检项目</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="physical_examination_item" name="physical_examination_item" required lay-verify="required" placeholder="" class="layui-input"/>
+                        <input type="text" id="physical_examination_item" name="physical_examination_item" autocomplete="off" lay-verify="required" placeholder="" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">社保缴交公司</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="social_security_company" required lay-verify="required" placeholder="" class="layui-input"/>
+                        <input type="text" id="social_security_company" required lay-verify="required" autocomplete="off" placeholder="" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">商业险</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="commercial_insurance" lay-verify="required" placeholder="" class="layui-input"/>
+                        <input type="text" id="commercial_insurance" lay-verify="required" autocomplete="off" placeholder="" class="layui-input"/>
                     </div>
                 </div>
             </div>
@@ -262,12 +262,12 @@
                     <input type="text" id="remarks" lay-verify="title" autocomplete="off"  class="layui-input">
                 </div>
             </div>
-          <!--  <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
-            </div>-->
+            <!--  <div class="layui-form-item">
+                  <div class="layui-input-block">
+                      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                  </div>
+              </div>-->
         </form>
 
     </div>
@@ -340,14 +340,18 @@
                                 layer.msg('请输入有效的身份证号，需是18位！');
                                 return false;
                             }
-                                if (!data.userId) {
-                                layer.msg("请输入员工编号");
+                            /*    if (!data.userId) {
+                                layer.msg("请输入员工编号！");
                                 return false;
                             }
-                            if (!data.birthday) {
-                                layer.msg("请输入出生年月！");
+                            if(data.userId.length!=9) {
+                                layer.msg('员工编号必须9位！');
                                 return false;
-                            }
+                            }*/
+                            // if (!data.birthday) {
+                            //     layer.msg("请输入出生年月！");
+                            //     return false;
+                            // }
                             if (!data.nativePlace) {
                                 layer.msg("请输入户籍所在地！");
                                 return false;
@@ -364,15 +368,21 @@
                                 layer.msg('请输入有效的手机号码，需是11位！');
                                 return false;
                             }
-
                             if (!data.dept) {
                                 layer.msg("请输入部门！");
+                                return false;
                             }
                             if (!data.post) {
                                 layer.msg("请输入职务！");
+                                return false;
+                            }
+                            if (!data.joinDate) {
+                                layer.msg("请输入入职时间！");
+                                return false;
                             }
                             if (!data.contractSigning) {
                                 layer.msg("请输入合同签订！");
+                                return false;
                             }
                             $.ajax({
                                 url: '/staff/add',
@@ -401,6 +411,8 @@
                             layui.form.render();
                         }
                     });
+
+
                 });
             },
             reload: function () {
@@ -448,7 +460,7 @@
             elem: '#app-management-table'
             , id: 'app-management-table'
             , toolbar: "#app-management-table-toolbar-head"
-            , defaultToolbar: ['filter', 'print']
+            , defaultToolbar: ['filter', 'print','exports']
             , url: '/staff/list'
             , page: true //开启分页
             , limits: [10, 20, 50, 100]
@@ -456,38 +468,38 @@
             , method: 'post'
             , contentType: 'application/json'
             , cols: [[ //表头
-                  {type:'checkbox'}
+                {type: 'checkbox',}
                 , {field: 'id', title: '序号',width:80}
                 , {field: 'physicalExaminationItem', title: '体检项目',width:120}
-                , {field: 'userName', title: '姓名',  edit: 'text',width:100}
-                , {field: 'userId', title: '员工编号',  edit: 'text',width:110}
-                , {field: 'nation', title: '民族',  edit: 'text',width:60}
-                , {field: 'sex', title: '性别', edit: 'text',width:60}
-                , {field: 'education', title: '文化程度',  edit: 'text',width:120}
-                , {field: 'school', title: '学校',  edit: 'text',width:120}
-                , {field: 'speciality', title: '专业',  edit: 'text',width:100}
-                , {field: 'center', title: '中心',  edit: 'text',width:120}
-                , {field: 'dept', title: '部门',  edit: 'text',width:120}
-                , {field: 'department', title: '科室',  edit: 'text',width:120}
-                , {field: 'team', title: '班组',  edit: 'text',width:120}
-                , {field: 'post', title: '职务', edit: 'text',width:120}
-                , {field: 'joinDate', title: '入职时间',  edit: 'text',width:120}
-                , {field: 'workingYear', title: '本企工龄',  edit: 'text',width:120}
-                , {field: 'birthday', title: '出生年月',  edit: 'text',width:120}
-                , {field: 'age', title: '年龄',  edit: 'text',width:120}
-                , {field: 'tel', title: '联系电话',  edit: 'text',width:120}
-                , {field: 'cardNo', title: '身份证号码',  edit: 'text',width:150}
-                , {field: 'cardStart', title: '身份证起始年月',  edit: 'text',width:150}
-                , {field: 'cardEnd', title: '身份证终止年月',  edit: 'text',width:120}
-                , {field: 'nativePlace', title: '户口所在地', edit: 'text',width:120}
-                , {field: 'address', title: '通讯地址',  edit: 'text',width:120}
-                , {field: 'contractSigning', title: '合同签订',  edit: 'text',width:120}
-                , {field: 'contractRenewal', title: '合同续签',  edit: 'text',width:120}
-                , {field: 'emergencyContact', title: '紧急联系人',  edit: 'text',width:120}
+                , {field: 'userName', title: '姓名', width:100}
+                , {field: 'userId', title: '员工编号',  width:110}
+                , {field: 'nation', title: '民族',  width:60}
+                , {field: 'sex', title: '性别', width:60}
+                , {field: 'education', title: '文化程度',  width:120}
+                , {field: 'school', title: '学校', event: 'setSign',  edit: 'text',width:120}
+                , {field: 'speciality', title: '专业',  width:100}
+                , {field: 'center', title: '中心',  width:120}
+                , {field: 'dept', title: '部门',  width:120}
+                , {field: 'department', title: '科室',  width:120}
+                , {field: 'team', title: '班组',  width:120}
+                , {field: 'post', title: '职务', width:120}
+                , {field: 'joinDate', title: '入职时间',  width:120}
+                , {field: 'workingYear', title: '本企工龄',  width:120}
+                , {field: 'birthday', title: '出生年月',  width:120}
+                , {field: 'age', title: '年龄',  width:120}
+                , {field: 'tel', title: '联系电话',  width:120}
+                , {field: 'cardNo', title: '身份证号码',  width:150}
+                , {field: 'cardStart', title: '身份证起始年月',  width:150}
+                , {field: 'cardEnd', title: '身份证终止年月',  width:120}
+                , {field: 'nativePlace', title: '户口所在地', width:120}
+                , {field: 'address', title: '通讯地址',  width:120}
+                , {field: 'contractSigning', title: '合同签订',  width:120}
+                , {field: 'contractRenewal', title: '合同续签',  width:120}
+                , {field: 'emergencyContact', title: '紧急联系人',  width:120}
                 , {field: 'relation', title: '关系',  edit: 'text',width:120}
-                , {field: 'emergencyContactTel', title: '紧急联系人电话',  edit: 'text',width:150}
-                , {field: 'socialSecurityCompany', title: '社保缴交公司',  edit: 'text',width:120}
-                , {field: 'commercialInsurance', title: '商业保险',  edit: 'text',width:120}
+                , {field: 'emergencyContactTel', title: '紧急联系人电话',  width:150}
+                , {field: 'socialSecurityCompany', title: '社保缴交公司',  width:120}
+                , {field: 'commercialInsurance', title: '商业保险',  width:120}
                 /*, {field: 'dataState', title: '数据状态',  edit: 'text',width:120}
                 , {field: 'createTime', title: '创建时间',  edit: 'text',width:120}
                 , {field: 'updateTime', title: '更新时间',  edit: 'text',width:120}*/
@@ -496,7 +508,7 @@
                     field: 'operate',
                     title: '操作',
                     toolbar: "#app-management-table-toolbar-line",
-                    width:300
+                    width:250
                 }
             ]]
             ,page:true
@@ -505,7 +517,7 @@
         // 修改和删除
         table.on('tool(app-management-table-fit)', function (obj) {
             if (obj.event === 'edit') {
-                layer.confirm('0？', function () {
+                layer.confirm('1', function () {
                     $.ajax({
                         url: '/staff/update',
                         type: 'post',
@@ -552,19 +564,21 @@
                 })
             }else if (obj.event === 'detail') {
                 layui.use('layer', function (layer) {
+                    // 这边回填
+
                     layer.open({
                         type: 1
                         , skin: 'examine-refuse-popup'
                         , offset: 'auto'
                         , title: '查看人员信息'
                         , id: 'layer-id'
-                        , area: ['800px', '600px']
+                        , area: ['1000px', '600px']
                         , content: $('#dialog-app-table-add')
                         , btn: ['确定', '取消']
                         , shade: 0.5 //不显示遮罩
                         , end: function () {
                             $("#dialog-app-table-add").css("display", "none");
-                            // $("#update-gray-version-form")[0].reset();
+                            //$("#update-gray-version-form")[0].reset();
                             layui.form.render();
                         }
                         , yes: function () {
@@ -594,10 +608,77 @@
                         }
                     });
                 });
+            }else if (obj.event === 'setSign') {
+                layer.prompt({
+                    formType: 2
+                    ,title: '修改 ID 为 ['+ data.id +'] 的用户签名'
+                    ,value: data.sign
+                }, function(value, index){
+                    layer.close(index);
+
+                    //这里一般是发送修改的Ajax请求
+
+                    //同步更新表格和缓存对应的值
+                    obj.update({
+                        sign: value
+                    });
+                });
             }
 
         });
 
+        // 搜索按钮操作
+        var $ = layui.$, actives = {
+            reload: function () {
+                table.reload('app-management-table', {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        userId: $("#search_user_id").val(),
+                        userName: $("#search_user_name").val(),
+                        dept: $("#search_dept").val()
+                    }
+                });
+            }
+        };
+        $("#search-btn").on("click", function () {
+            var type = $(this).data('type');
+            actives[type] ? actives[type].call(this) : '';
+        });
+
+        // 重置
+        $("#reset-btn").on("click", function () {
+            $("#search_user_id").val("");
+            $("#search_user_name").val("");
+            $("#search_dept").val("");
+            form.render();
+        });
+
+    });
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听单元格事件
+        table.on('tool(demoEvent)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'setSign'){
+                layer.prompt({
+                    formType: 2
+                    ,title: '修改 ID 为 ['+ data.id +'] 的用户签名'
+                    ,value: data.sign
+                }, function(value, index){
+                    layer.close(index);
+
+                    //这里一般是发送修改的Ajax请求
+
+                    //同步更新表格和缓存对应的值
+                    obj.update({
+                        sign: value
+                    });
+                });
+            }
+        });
     });
 </script>
 </body>

@@ -2,10 +2,12 @@ package com.jiayu.staffmanagement.staff.service;
 
 
 import com.jiayu.staffmanagement.common.http.response.LayuiResponse;
+import com.jiayu.staffmanagement.staff.http.request.StaffAddRequest;
 import com.jiayu.staffmanagement.staff.http.request.StaffListRequest;
 import com.jiayu.staffmanagement.staff.http.response.StaffListResponse;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -36,7 +38,7 @@ public interface StaffService {
      * @param request
      * @return
      */
-    Boolean add(StaffListRequest request);
+    Boolean add(StaffAddRequest request);
 
     /**
      * 根据id删除

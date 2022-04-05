@@ -29,7 +29,7 @@ public class StaffListResponse {
     /**
      * 员工编号
      */
-    private Integer userId;
+    private String userId;
 
     /**
      * 民族
@@ -135,6 +135,11 @@ public class StaffListResponse {
      * 合同签订
      */
     private LocalDate contractSigning;
+
+    /**
+     * 合同签订
+     */
+    private LocalDate contractEnd;
 
     /**
      * 合同续签

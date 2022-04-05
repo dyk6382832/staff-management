@@ -43,7 +43,7 @@ public class Staff implements Serializable {
     /**
      * 员工编号
      */
-    private Integer userId;
+    private String userId;
 
     /**
      * 民族

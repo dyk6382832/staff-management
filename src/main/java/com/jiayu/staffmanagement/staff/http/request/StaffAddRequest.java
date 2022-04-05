@@ -1,38 +1,27 @@
-package com.jiayu.staffmanagement.staff.entity;
+package com.jiayu.staffmanagement.staff.http.request;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.jiayu.staffmanagement.common.http.request.LayuiRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author chenyueqi
- * @since 2022-03-25
+ * @version: 1.00.00
+ * @description: 用户请求
+ * @copyright: Copyright (c) 2020 立林科技 All Rights Reserved
+ * @company: 厦门立林科技有限公司
+ * @author: chenyueqi
+ * @date: 2021-06-22 15:19
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName(value = "t_staff")
-public class StaffEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@EqualsAndHashCode(callSuper=false)
+public class StaffAddRequest extends LayuiRequest {
 
     /**
      * 序号
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
-
     /**
      * 体检项目
      */
@@ -46,7 +35,7 @@ public class StaffEntity implements Serializable {
     /**
      * 员工编号
      */
-    private String userId;
+    private Integer userId;
 
     /**
      * 民族
@@ -187,26 +176,5 @@ public class StaffEntity implements Serializable {
      * 备注
      */
     private String remarks;
-
-    /**
-     * 数据状态。0：新记录。新增的记录即为新记录 。1：更新记录，新记录数据如果进行了更新操作，即变成更新记录。2：待删除记录，删除记录并不是马上就删除，而是先对记录进行待删除的标记，达到生命周期后再进行删除。
-     */
-    private Integer dataState;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 照片
-     */
- /*   private String photo;*/
-
 
 }

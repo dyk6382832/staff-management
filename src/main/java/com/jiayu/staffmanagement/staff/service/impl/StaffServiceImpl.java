@@ -1,5 +1,7 @@
 package com.jiayu.staffmanagement.staff.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiayu.staffmanagement.admin.entity.AccountListEntity;
@@ -7,6 +9,7 @@ import com.jiayu.staffmanagement.admin.http.AccountListResponse;
 import com.jiayu.staffmanagement.common.http.response.LayuiResponse;
 import com.jiayu.staffmanagement.staff.dao.StaffMapper;
 import com.jiayu.staffmanagement.staff.entity.StaffEntity;
+import com.jiayu.staffmanagement.staff.http.request.StaffAddRequest;
 import com.jiayu.staffmanagement.staff.http.request.StaffListRequest;
 import com.jiayu.staffmanagement.staff.http.response.StaffListResponse;
 import com.jiayu.staffmanagement.staff.service.StaffService;
@@ -16,7 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -37,7 +45,13 @@ public class StaffServiceImpl implements StaffService {
         Page<StaffEntity> ipage = new Page<>(request.getPage(), request.getLimit());
         QueryWrapper<StaffEntity> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(request.getUserName())) {
-            queryWrapper.like("username", request.getUserName());
+            queryWrapper.like("user_name", request.getUserName());
+        }
+        if (StringUtils.isNotBlank(request.getUserId())) {
+            queryWrapper.like("user_id", request.getUserId());
+        }
+        if (StringUtils.isNotBlank(request.getDept())) {
+            queryWrapper.like("dept", request.getDept());
         }
         queryWrapper.orderByAsc("id");
         staffMapper.selectPage(ipage, queryWrapper);
@@ -53,12 +67,49 @@ public class StaffServiceImpl implements StaffService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean add(StaffListRequest request) {
+    public Boolean add(StaffAddRequest request) {
         StaffEntity staffEntity = new StaffEntity();
         BeanUtils.copyProperties(request, staffEntity);
+        // 解析身份证号
+        Map<String, String> msg = getMsg(request.getCardNo());
+        String birthDate = msg.get("birthDate");
+        LocalDate date = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String sex = msg.get("sex");
+        staffEntity.setBirthday(date);
+        staffEntity.setSex(sex);
+        staffEntity.setUserId(getUserId());
         staffEntity.setDataState(1);
         staffMapper.insert(staffEntity);
         return true;
+    }
+
+    /**
+     * 员工工号生成算法
+     * @return
+     */
+    private String getUserId(){
+        Date date = DateUtil.date();
+        String format = DateUtil.format(date, "yyyyMM");
+        String userId = format + "%";
+        QueryWrapper<StaffEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("user_id", userId);
+        List<StaffEntity> list = staffMapper.selectList(queryWrapper);
+        if (CollectionUtil.isEmpty(list)) {
+            return format+"001";
+        }else {
+            StaffEntity entity = list.stream().max((x, y) -> Long.compare(x.getId(), y.getId())).get();
+            String subId = entity.getUserId();
+            subId = subId.substring(6,9);
+            int num = Integer.valueOf(subId)+1;
+            if (num < 10) {
+                subId = "00"+num;
+            }else if (10 <= num && num < 100) {
+                subId = "0" + num;
+            }else if (num >= 100) {
+                subId = "" + num;
+            }
+            return format + subId;
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -72,6 +123,26 @@ public class StaffServiceImpl implements StaffService {
         StaffEntity staffEntity = new StaffEntity();
         BeanUtils.copyProperties(request, staffEntity);
         staffMapper.updateById(staffEntity);
+    }
+
+    /**
+     * 解析身份证号，获取生日和性别
+     * @param msg
+     * @return
+     */
+    private Map<String, String> getMsg(String msg){
+        Map<String, String> map = new HashMap<>(2);
+        String birthDate = msg.substring(6,14);
+        String gender;
+        Integer sex = Integer.valueOf(msg.substring(16,17));
+        map.put("birthDate", birthDate);
+        if (sex%2 == 0){
+            gender = "女";
+        }else {
+            gender = "男";
+        }
+        map.put("sex", gender);
+        return map;
     }
 
     private StaffListResponse buildResponse(StaffEntity entity) {
@@ -132,6 +203,7 @@ public class StaffServiceImpl implements StaffService {
                 .center(entity.getCenter())
                 .commercialInsurance(entity.getCommercialInsurance())
                 .contractSigning(entity.getContractSigning())
+                .contractEnd(entity.getContractSigning().plusYears(3))
                 .contractRenewal(entity.getContractRenewal())
                 .department(entity.getDepartment())
                 .dept(entity.getDept())

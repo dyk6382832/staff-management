@@ -5,6 +5,7 @@ import com.jiayu.staffmanagement.admin.entity.AccountDTO;
 import com.jiayu.staffmanagement.common.constant.AccountConstant;
 import com.jiayu.staffmanagement.common.http.response.CommonResult;
 import com.jiayu.staffmanagement.common.http.response.LayuiResponse;
+import com.jiayu.staffmanagement.staff.http.request.StaffAddRequest;
 import com.jiayu.staffmanagement.staff.http.request.StaffListRequest;
 import com.jiayu.staffmanagement.staff.http.response.StaffListResponse;
 import com.jiayu.staffmanagement.staff.service.StaffService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 
 /**
@@ -42,7 +44,7 @@ public class StaffController {
     }
 
     @PostMapping("/add")
-    public CommonResult<Boolean> add(@RequestBody StaffListRequest request) {
+    public CommonResult<Boolean> add(@RequestBody StaffAddRequest request) {
         return CommonResult.success(staffService.add(request));
     }
 

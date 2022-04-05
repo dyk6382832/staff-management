@@ -15,41 +15,41 @@
 
         <!-- 数据块 -->
         <div class="layui-card-body"><br>
-            <table>
-                <tr>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">姓名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="search_user_name" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <div class="layui-form layui-form-pane">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_name" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">员工编号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="search_user_id" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">员工编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_id"  placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">部门</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="search_dept" required lay-verify="required" placeholder="" class="layui-input" value=""/>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_dept" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="">
-                            <div>
-                                <button type="submit" class="layui-btn">查询</button>
-                            </div>
-                        </div>
-                    </th>
-                </tr>
 
+                            <div class="layui-inline">
+                                <button class="layui-btn layuiadmin-btn-list" id="search-btn" data-type="reload" lay-submit=""
+                                        lay-filter="LAY-app-contlist-search">
+                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                </button>
+                                <button type="reset" class="layui-btn layui-btn-primary" id="reset-btn">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
             </table>
             <table class="layui-hide" id="app-management-table" lay-filter="app-management-table-fit"></table>
             <script type="text/html" id="app-management-table-toolbar-line">
@@ -143,7 +143,7 @@
             elem: '#app-management-table'
             , id: 'app-management-table'
             , toolbar: "#app-management-table-toolbar-head"
-            , defaultToolbar: ['filter', 'print']
+            , defaultToolbar: ['filter', 'print','exports','imports']
             , url: '/staff/list'
             , page: true //开启分页
             , limits: [10, 20, 50, 100]
@@ -151,14 +151,14 @@
             , method: 'post'
             , contentType: 'application/json'
             , cols: [[ //表头
-                {type:'radio'}
+                {type: 'checkbox',}
                 , {field: 'id', title: '序号', width:60}
-                , {field: 'userId', title: '员工编号', edit: 'text'}
-                , {field: 'userName', title: '姓名',  edit: 'text'}
-                , {field: 'contractSigning', title: '合同起始时间',  edit: 'text'}
-                , {field: 'contract_end', title: '合同结束时间',  edit: 'text'}
-                , {field: 'post', title: '职务', edit: 'text'}
-                , {field: 'joinDate', title: '入职时间',  edit: 'text'}
+                , {field: 'userId', title: '员工编号' }
+                , {field: 'userName', title: '姓名' ,sort: true}
+                , {field: 'contractSigning', title: '合同起始时间'}
+                , {field: 'contractEnd', title: '合同结束时间'}
+                , {field: 'post', title: '职务'}
+                , {field: 'joinDate', title: '入职时间'}
             ]]
         });
 
@@ -258,6 +258,33 @@
 
         });*/
 
+        // 搜索按钮操作
+        var $ = layui.$, actives = {
+            reload: function () {
+                table.reload('app-management-table', {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        userId: $("#search_user_id").val(),
+                        userName: $("#search_user_name").val(),
+                        dept: $("#search_dept").val()
+                    }
+                });
+            }
+        };
+        $("#search-btn").on("click", function () {
+            var type = $(this).data('type');
+            actives[type] ? actives[type].call(this) : '';
+        });
+
+        // 重置
+        $("#reset-btn").on("click", function () {
+            $("#search_user_id").val("");
+            $("#search_user_name").val("");
+            $("#search_dept").val("");
+            form.render();
+        });
     });
 </script>
 </body>

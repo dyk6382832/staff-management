@@ -15,35 +15,43 @@
 
         <!-- 数据块 -->
         <div class="layui-card-body"><br>
-            <table>
-                <tr>
-                    <th><div class="layui-inline">
-                        <label class="layui-form-label">员工编号</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="user_id" required lay-verify="required" placeholder="请输入" class="layui-input" value=""/>
-                        </div>
-                    </div>
-                    </th>
-                    <th>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">部门</label>
-                            <div class="layui-input-block">
-                                <select name="fept" lay-verify="">
-                                    <option value="">请选择部门</option>
-                                    <option value="010">行政部</option>
-                                    <option value="021">人事部</option>
-                                    <option value="0571">信息部</option>
-                                </select>
+            <fieldset class="table-search-fieldset">
+                <legend>搜索信息</legend>
+                <div style="margin: 10px 10px 10px 10px">
+                    <div class="layui-form layui-form-pane">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_name" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">员工编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_user_id"  placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="search_dept" placeholder="" class="layui-input" autocomplete="off" value=""/>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <button class="layui-btn layuiadmin-btn-list" id="search-btn" data-type="reload" lay-submit=""
+                                        lay-filter="LAY-app-contlist-search">
+                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                </button>
+                                <button type="reset" class="layui-btn layui-btn-primary" id="reset-btn">重置</button>
                             </div>
                         </div>
-                    </th>
-                    <th></th>
-                    <th>
-                        <div><button type="submit" class="layui-btn layui-btn-primary">查询</button></div>
-                    </th>
-                </tr>
-
+                    </div>
+                </div>
+            </fieldset>
             </table>
+            <table class="layui-hide" id="app-management-table" lay-filter="app-management-table-fit"></table>
         </div>
 
     </div>
@@ -51,73 +59,6 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
-    var appManagementTableJs = {
-        method: {
-            addAppManagementDialog: function () {
-                // 添加按钮操作
-                layui.use('layer', function (layer) {
-                    layer.open({
-                        type: 1
-                        , skin: 'examine-refuse-popup'
-                        , offset: 'auto'
-                        , id: 'layer-id'
-                        , area: ['800px', '600px']
-                        , content: $("#dialog-app-table-add")
-                        , btn: ['确定', '取消']
-                        , shade: 0.5 //不显示遮罩
-                        , end: function () {
-                            $("#dialog-app-table-add").css("display", "none");
-                            $("#dialog-app-table-add")[0].reset();
-                            layui.form.render();
-                        }
-                        , yes: function () {
-                            var data = {};
-                            data.userId = $("#user_id").val();
-                            data.userName = $("#user_name").val();
-                            data.nation = $("#nation").val();
-
-                            $.ajax({
-                                url: '/staff/add',
-                                type: 'post',
-                                data: JSON.stringify(data),
-                                contentType: 'application/json',
-                                success: function (result) {
-                                    layer.closeAll();
-                                    if (result.code == 200) {
-                                        layer.msg('添加成功');
-                                        $("#dialog-app-table-add")[0].reset();
-                                        appManagementTableJs.method.reload();
-                                        layui.form.render();
-                                    } else {
-                                        layer.msg(result.message, {icon: 0});
-                                    }
-                                },
-                                error: function () {
-                                    layer.msg('数据异常');
-                                    layer.closeAll();
-                                }
-                            })
-                        }
-                        , btn2: function () {
-                            $("#dialog-app-table-add")[0].reset();
-                            layui.form.render();
-                        }
-                    });
-                });
-            },
-            reload: function () {
-                layui.use(['table'], function () {
-                    var table = layui.table;
-                    table.reload('app-management-table', {
-                        page: {
-                            curr: 1
-                        },
-                        where: null
-                    });
-                })
-            }
-        }
-    };
     layui.use(['table', 'util'], function () {
         var table = layui.table
             , form = layui.form;
@@ -125,7 +66,7 @@
             elem: '#app-management-table'
             , id: 'app-management-table'
             , toolbar: "#app-management-table-toolbar-head"
-            , defaultToolbar: ['filter', 'print']
+            // , defaultToolbar: ['filter', 'print','exports']
             , url: '/staff/list'
             , page: true //开启分页
             , limits: [10, 20, 50, 100]
@@ -134,17 +75,63 @@
             , contentType: 'application/json'
             , cols: [[ //表头
                 {type:'radio'}
-                ,{field: 'id', title: '序号', width:60}
-                , {field: 'userId', title: '员工编号', edit: 'text'}
-                , {field: 'userName', title: '姓名',  edit: 'text'}
-                , {field: 'contrac_start', title: '合同起始时间',  edit: 'text'}
-                , {field: 'contrac_end', title: '合同结束时间',  edit: 'text'}
-                , {field: 'post', title: '职务', edit: 'text'}
-                , {field: 'joinDate', title: '入职时间',  edit: 'text'}
+                , {field: 'userId', title: '员工编号'}
+                , {field: 'userName', title: '姓名'}
+                , {field: 'post', title: '职务', event: 'setPost', style:'cursor: pointer;'}
             ]]
         });
 
+        //监听行单击事件（双击事件为：rowDouble）
+        layui.use('table', function(){
+            var table = layui.table;
+            //监听单元格事件
+            table.on('tool(demoEvent)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'setPost'){
+                    layer.prompt({
+                        formType: 2
+                        ,title: '员工编号 ['+ data.userId +'] 职务'
+                        ,value: data.post
+                    }, function(value, index){
+                        layer.close(index);
 
+                        //这里一般是发送修改的Ajax请求
+
+                        //同步更新表格和缓存对应的值
+                        obj.update({
+                            sign: value
+                        });
+                    });
+                }
+            });
+        });
+        // 搜索按钮操作
+        var $ = layui.$, actives = {
+            reload: function () {
+                table.reload('app-management-table', {
+                    page: {
+                        curr: 1
+                    },
+                    where: {
+                        userId: $("#search_user_id").val(),
+                        userName: $("#search_user_name").val(),
+                        dept: $("#search_dept").val()
+                    }
+                });
+            }
+        };
+        $("#search-btn").on("click", function () {
+            var type = $(this).data('type');
+            actives[type] ? actives[type].call(this) : '';
+        });
+
+        // 重置
+        $("#reset-btn").on("click", function () {
+            $("#search_user_id").val("");
+            $("#search_user_name").val("");
+            $("#search_dept").val("");
+            form.render();
+        });
     });
 </script>
 </body>
